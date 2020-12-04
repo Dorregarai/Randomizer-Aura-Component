@@ -1,0 +1,58 @@
+({
+	handleCalculate : function(component, event, helper) {
+        let toastEvent = $A.get('e.force:showToast');
+        
+        if(component.get('v.rangeMin') >= component.get('v.rangeMax')) {
+            toastEvent.setParams({
+                title : 'Range Error',
+                message: $A.get('{!$Label.c.Incorrect_range}'),
+                duration: '3000',
+                key: 'info_alt',
+                type: 'error',
+                mode: 'pester'
+            });
+            
+            toastEvent.fire();
+        } else {
+            let min = Math.ceil(component.get('v.rangeMin'));
+            let max = Math.floor(component.get('v.rangeMax'));
+            component.set(
+                'v.result', 
+                Math.floor(Math.random() * (max - min + 1)) + min
+            );
+            
+            toastEvent.setParams({
+                title : 'Success',
+                message: $A.get('{!$Label.c.Success}'),
+                duration: '1000',
+                key: 'info_alt',
+                type: 'success',
+                mode: 'pester'
+            });
+            
+            toastEvent.fire();
+        }
+    },
+    
+    handleInputChange : function(component, event, helper) {
+        let allValid = component.find('range').reduce(function (validSoFar, inputCmp) {
+            inputCmp.reportValidity();
+            return validSoFar && inputCmp.checkValidity();
+        }, true);
+        
+        if(allValid) {
+            let rangeName = event.getSource().get('v.name');
+            
+            switch(rangeName) {
+                case 'min': component.set('v.rangeMin', Number(event.getSource().get('v.value')));
+                    break;
+                case 'max': component.set('v.rangeMax', Number(event.getSource().get('v.value')));
+                    break;
+            }
+            
+            if(component.get('v.rangeMin') && component.get('v.rangeMax')) {
+                component.set('v.isDisabled', false);
+            } else { component.set('v.isDisabled', true) }
+        } else { component.set('v.isDisabled', true); }
+    }
+})
