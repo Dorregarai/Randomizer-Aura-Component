@@ -1,0 +1,58 @@
+<aura:component >
+    <aura:attribute name="rangeMin" type="Integer" />
+    <aura:attribute name="rangeMax" type="Integer" />
+    <aura:attribute name="result" type="Integer" />
+    <aura:attribute name="isDisabled" type="Boolean" default="true" />
+	
+    <lightning:layout
+                      multipleRows="true"
+                      horizontalAlign="center"
+                      class="slds-grid_vertical"
+                      >
+        
+        <lightning:layoutItem padding="around-small">
+            <lightning:input
+                             aura:id="range"
+                             name="min"
+                             label="Range min"
+                             type="number"
+                             value="{!v.rangeMin}"
+                             required="true"
+                             onchange="{!c.handleInputChange}"
+                             />
+        </lightning:layoutItem>
+        
+        <lightning:layoutItem padding="around-small">
+            <lightning:input
+                             aura:id="range"
+                             name="max"
+                             label="Range max"
+                             type="number"
+                             value="{!v.rangeMax}"
+                             required="true"
+                             onchange="{!c.handleInputChange}"
+                             />
+        </lightning:layoutItem>
+        
+        <lightning:layoutItem padding="around-small">
+            <lightning:input
+                             aura:id="result"
+                             readonly="true"
+                             value="{!v.result}"
+                             label="Result"
+                             />
+        </lightning:layoutItem>
+        
+        <lightning:layoutItem padding="around-small">
+            <lightning:button
+                              variant="brand"
+                              label="Calculate"
+                              title="Calculate action"
+                              disabled="{!v.isDisabled}"
+                              onclick="{!c.handleCalculate}"
+                              />
+        </lightning:layoutItem>
+        
+    </lightning:layout>
+    
+</aura:component>
