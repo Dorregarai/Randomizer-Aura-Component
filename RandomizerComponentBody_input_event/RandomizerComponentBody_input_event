@@ -1,0 +1,7 @@
+<aura:event type="COMPONENT" >
+
+    <aura:attribute name="rangeValue" type="Integer" />
+    <aura:attribute name="rangeName" type="String" />
+    <aura:attribute name="rangeIsValid" type="Boolean" />
+
+</aura:event>
