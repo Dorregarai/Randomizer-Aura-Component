@@ -1,0 +1,19 @@
+<aura:component >
+    <aura:attribute name="inputName" type="String" />
+    <aura:attribute name="inputLabel" type="String" />
+    <aura:attribute name="inputType" type="String" />
+    <aura:attribute name="inputValue" type="Integer" />
+    <aura:attribute name="inputRequired" type="Boolean" />
+    <aura:registerEvent name="inputChangeEvent" type="c:RandomizerComponentBody_input_event" />
+	
+    <lightning:input
+                     aura:id="range"
+                     name="{!v.inputName}"
+                     label="{!v.inputLabel}"
+                     type="{!v.inputType}"
+                     value="{!v.inputValue}"
+                     required="{!v.inputRequired}"
+                     onchange="{!c.handleInputChange}"
+                     />
+    
+</aura:component>
