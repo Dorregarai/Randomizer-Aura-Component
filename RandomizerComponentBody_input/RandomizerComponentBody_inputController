@@ -1,0 +1,16 @@
+({
+	handleInputChange : function(component, event, helper) {
+        let validity = component.find('range').get('v.validity');
+        
+        component.set('v.inputValue', event.getSource().get('v.value'));
+        component.set('v.inputName', event.getSource().get('v.name'));
+        
+		component.getEvent('inputChangeEvent')
+        	.setParams({ 
+                rangeValue: component.get('v.inputValue') ,
+                rangeName: component.get('v.inputName'),
+                rangeIsValid: validity.valid
+            })
+        	.fire();
+	}
+})
