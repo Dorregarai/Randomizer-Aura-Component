@@ -6,7 +6,6 @@
             toastEvent.setParams({
                 title : 'Range Error',
                 message: $A.get('{!$Label.c.Incorrect_range}'),
-                duration: '3000',
                 key: 'info_alt',
                 type: 'error',
                 mode: 'pester'
@@ -24,7 +23,6 @@
             toastEvent.setParams({
                 title : 'Success',
                 message: $A.get('{!$Label.c.Success}'),
-                duration: '1000',
                 key: 'info_alt',
                 type: 'success',
                 mode: 'pester'
@@ -35,18 +33,16 @@
     },
     
     handleInputChange : function(component, event, helper) {
-        let allValid = component.find('range').reduce(function (validSoFar, inputCmp) {
-            inputCmp.reportValidity();
-            return validSoFar && inputCmp.checkValidity();
-        }, true);
+        let rangeValue = event.getParam('rangeValue');
+        let validity = event.getParam('rangeIsValid');
         
-        if(allValid) {
-            let rangeName = event.getSource().get('v.name');
+        if(validity) {
+            let rangeName = event.getParam('rangeName');
             
             switch(rangeName) {
-                case 'min': component.set('v.rangeMin', Number(event.getSource().get('v.value')));
+                case 'min': component.set('v.rangeMin', Number(rangeValue));
                     break;
-                case 'max': component.set('v.rangeMax', Number(event.getSource().get('v.value')));
+                case 'max': component.set('v.rangeMax', Number(rangeValue));
                     break;
             }
             
