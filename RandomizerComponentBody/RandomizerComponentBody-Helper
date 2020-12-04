@@ -7,7 +7,7 @@
             message: params.message,
             type: params.type,
             mode: params.mode,
-            key: 'info_alt'
+            key: 'info_alt',
         });
         
         toastEvent.fire();
