@@ -1,4 +1,4 @@
 # Randomizer-Aura-Component
 Task for SENLA courses
 
-##Here is my screenshot
+## Here is my screenshot
