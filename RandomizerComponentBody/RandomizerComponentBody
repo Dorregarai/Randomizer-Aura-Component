@@ -3,34 +3,36 @@
     <aura:attribute name="rangeMax" type="Integer" />
     <aura:attribute name="result" type="Integer" />
     <aura:attribute name="isDisabled" type="Boolean" default="true" />
+    <aura:handler
+                  name="inputChangeEvent"
+                  event="c:RandomizerComponentBody_input_event"
+                  action="{!c.handleInputChange}"
+                  />
+    
 	
     <lightning:layout
                       multipleRows="true"
-                      horizontalAlign="center"
+                      horizontalAlign="space"
                       class="slds-grid_vertical"
                       >
         
         <lightning:layoutItem padding="around-small">
-            <lightning:input
-                             aura:id="range"
-                             name="min"
-                             label="Range min"
-                             type="number"
-                             value="{!v.rangeMin}"
-                             required="true"
-                             onchange="{!c.handleInputChange}"
+            <c:RandomizerComponentBody_input
+                                             aura:id="range"
+                                             inputName="min"
+                                             inputLabel="Range min"
+                                             inputType="number"
+                                             inputRequired="true"
                              />
         </lightning:layoutItem>
         
         <lightning:layoutItem padding="around-small">
-            <lightning:input
-                             aura:id="range"
-                             name="max"
-                             label="Range max"
-                             type="number"
-                             value="{!v.rangeMax}"
-                             required="true"
-                             onchange="{!c.handleInputChange}"
+            <c:RandomizerComponentBody_input
+                                             aura:id="range"
+                                             inputName="max"
+                                             inputLabel="Range min"
+                                             inputType="number"
+                                             inputRequired="true"
                              />
         </lightning:layoutItem>
         
