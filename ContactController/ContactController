@@ -1,0 +1,19 @@
+public class ContactController {
+	@AuraEnabled
+    public static String updateContact(Integer randomValue) {
+        Integer countCont = [ SELECT count() FROM Contact ];
+        Integer rand = Math.floor(Math.random() * countCont).intValue();
+        Contact contToUpdate = [ SELECT Id, Name FROM Contact LIMIT 1 OFFSET :rand ];
+        
+        contToUpdate.Random_Number__c = randomValue;
+        
+        update contToUpdate;
+        
+        Success_Message__c custSett = Success_Message__c.getOrgDefaults();
+        custSett.Message__c = 'Contact ' + contToUpdate.Name + ' successfully updated with random number '+ randomValue;
+        
+        update custSett;
+        
+        return custSett.Message__c;
+    }
+}
