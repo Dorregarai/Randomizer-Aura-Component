@@ -1,8 +1,9 @@
-<aura:component >
+<aura:component controller="ContactController">
     <aura:attribute name="rangeMin" type="Integer" />
     <aura:attribute name="rangeMax" type="Integer" />
     <aura:attribute name="result" type="Integer" />
     <aura:attribute name="isDisabled" type="Boolean" default="true" />
+    <aura:attribute name="message" type="String" />
     <aura:handler
                   name="inputChangeEvent"
                   event="c:RandomizerComponentBody_input_event"
