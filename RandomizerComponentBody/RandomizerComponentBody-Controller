@@ -1,6 +1,6 @@
 ({
 	handleCalculate : function(component, event, helper) {
-        if(component.get('v.rangeMin') >= component.get('v.rangeMax')) {            
+        if(component.get('v.rangeMin') >= component.get('v.rangeMax')) {           
             helper.showToast({
                 title: 'Range Error',
                 message: $A.get('{!$Label.c.Incorrect_range}'),
@@ -10,17 +10,29 @@
         } else {
             let min = Math.ceil(component.get('v.rangeMin'));
             let max = Math.floor(component.get('v.rangeMax'));
-            component.set(
-                'v.result', 
-                Math.floor(Math.random() * (max - min + 1)) + min
-            );
+            let rand = Math.floor(Math.random() * (max - min + 1)) + min;
+            component.set('v.result', rand);
             
-            helper.showToast({
-                title : 'Success',
-                message: $A.get('{!$Label.c.Success}'),
-                type: 'success',
-                mode: 'pester'
+            let action = component.get('c.updateContact');
+            
+            action.setParams({
+                'randomValue': rand
             });
+            
+            action.setCallback(this, function(res) {
+                if(res.getState() === 'SUCCESS') {
+                	component.set('v.message', res.getReturnValue());
+                    
+                    helper.showToast({
+                        title : 'Success',
+                        message: component.get('v.message'),
+                        type: 'success',
+                        mode: 'pester'
+                    });
+            	}
+            });
+        	$A.enqueueAction(action);
+            
         }
     },
     
@@ -49,3 +61,4 @@
             );
         }
     }
+})
