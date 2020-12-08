@@ -3,7 +3,7 @@
         if(component.get('v.rangeMin') >= component.get('v.rangeMax')) {           
             helper.showToast({
                 title: 'Range Error',
-                message: $A.get('{!$Label.c.Incorrect_range}'),
+                message: $A.get('$Label.c.Incorrect_range'),
                 type: 'error',
                 mode: 'pester'
             });
@@ -21,12 +21,13 @@
             
             action.setCallback(this, function(res) {
                 if(res.getState() === 'SUCCESS') {
-                	component.set('v.message', res.getReturnValue());
+                	component.set('v.message', res.getReturnValue().toastMessage);
+                    component.set('v.type', res.getReturnValue().toastType);
                     
                     helper.showToast({
                         title : 'Success',
                         message: component.get('v.message'),
-                        type: 'success',
+                        type: component.get('v.type'),
                         mode: 'pester'
                     });
             	}
