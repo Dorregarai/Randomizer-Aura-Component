@@ -4,6 +4,8 @@
     <aura:attribute name="result" type="Integer" />
     <aura:attribute name="isDisabled" type="Boolean" default="true" />
     <aura:attribute name="message" type="String" />
+    <aura:attribute name="type" type="String" />
+    
     <aura:handler
                   name="inputChangeEvent"
                   event="c:RandomizerComponentBody_input_event"
@@ -31,7 +33,7 @@
             <c:RandomizerComponentBody_input
                                              aura:id="range"
                                              inputName="max"
-                                             inputLabel="Range min"
+                                             inputLabel="Range max"
                                              inputType="number"
                                              inputRequired="true"
                              />
