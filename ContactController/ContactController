@@ -1,19 +1,30 @@
 public class ContactController {
 	@AuraEnabled
-    public static String updateContact(Integer randomValue) {
+    public static Map<String, String> updateContact(Integer randomValue) {
+        Map<String, String> res = new Map<String, String>();
         Integer countCont = [ SELECT count() FROM Contact ];
         Integer rand = Math.floor(Math.random() * countCont).intValue();
         Contact contToUpdate = [ SELECT Id, Name FROM Contact LIMIT 1 OFFSET :rand ];
         
         contToUpdate.Random_Number__c = randomValue;
         
-        update contToUpdate;
-        
         Success_Message__c custSett = Success_Message__c.getOrgDefaults();
-        custSett.Message__c = 'Contact ' + contToUpdate.Name + ' successfully updated with random number '+ randomValue;
+        custSett.Message__c = 
+            'Contact ' + contToUpdate.Name + ' successfully updated with random number '+ randomValue;
+        custSett.Toast_Type__c = 'success';
         
-        update custSett;
+        try {
+            update contToUpdate;
+            update custSett;
+        } catch (Exception e) {
+            System.debug(e.getMessage());
+            custSett.Message__c = e.getMessage();
+            custSett.Toast_Type__c = 'error';
+        }
         
-        return custSett.Message__c;
+        res.put('toastMessage', custSett.Message__c);
+        res.put('toastType', custSett.Toast_Type__c);
+        System.debug(res);
+        return res;
     }
 }
